@@ -42,9 +42,8 @@ object Day14 extends App with ProvidedInput {
       .map(r =>
         {
           val w = r.length
-          val foo: Seq[Int] = r.zipWithIndex
+          r.zipWithIndex
             .collect { case (c, i) if c == 'O' => w - i }
-          foo
         }.sum
       )
   }.sum

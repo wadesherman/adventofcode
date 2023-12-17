@@ -23,31 +23,28 @@ object Day4 extends App with ProvidedInput {
       wonCopies: Seq[Scratcher]
   )
 
-  def parseInput(data: Seq[String]): Array[Scratcher] = data
-    .map(_.split(':').toList)
-    .map { case card :: numbers :: Nil =>
-      val i = card.replaceAll("Card\\s+", "").toInt
-      val lists: List[Seq[Int]] = numbers
-        .split('|')
-        .map(s => s.stripLeading().stripTrailing())
-        .toList
-        .map(l => l.replaceAll("\\s+", " "))
-        .map(_.split(" ").map(_.toInt).toSeq)
+  def numbersToList(numbers: String): Seq[Int] = {
+    numbers.stripLeading.stripTrailing
+      .replaceAll("\\s+", " ")
+      .split(" ")
+      .map(_.toInt)
+  }
 
-      lists match {
-        case winning :: mine :: Nil =>
-          val m = matches(winning, mine)
-          Scratcher(
-            index = i,
-            winningNumbers = winning,
-            myNumbers = mine,
-            matchCount = m,
-            score = score(m),
-            wonCopies = Nil
-          )
-      }
+  def parseInput(data: Seq[String]): Array[Scratcher] = data.map {
+    case s"Card ${i}: ${myNumbers} | ${winningNumbers}" => {
+      val mine = numbersToList(myNumbers)
+      val winning = numbersToList(winningNumbers)
+      val m = matches(winning, mine)
+      Scratcher(
+        index = i.stripLeading.toInt,
+        winningNumbers = winning,
+        myNumbers = mine,
+        matchCount = m,
+        score = score(m),
+        wonCopies = Nil
+      )
     }
-    .toArray
+  }.toArray
 
   def matches(winningNumbers: Seq[Int], myNumbers: Seq[Int]): Int = {
     myNumbers.intersect(winningNumbers).length
@@ -63,31 +60,31 @@ object Day4 extends App with ProvidedInput {
 
   def part1Score(scratchers: Seq[Scratcher]): Int = scratchers.map(_.score).sum
 
-  class WinTree(data: Array[Scratcher]) {
-
-    def makeCopies(s: Scratcher): Scratcher = {
-      if (s.score == 0) {
-        s
-      } else {
-        s.copy(wonCopies = data.slice(s.index, s.index + s.matchCount).map(makeCopies))
-      }
+  def makeCopies(s: Scratcher, data: Array[Scratcher]): Scratcher = {
+    if (s.score == 0) {
+      s
+    } else {
+      s.copy(wonCopies = data.slice(s.index, s.index + s.matchCount).map(g => makeCopies(g, data)))
     }
-
-    def countAll(s: Scratcher): Int = {
-      1 + s.wonCopies.map(countAll).sum
-    }
-
-    val part2Answer: Int = data.map(makeCopies).map(countAll).sum
-
   }
 
-  assert(part1Score(parseInput(testInput)) == 13)
-  val part1Answer = part1Score(parseInput(providedInput))
+  def countAll(s: Scratcher): Int = {
+    1 + s.wonCopies.map(countAll).sum
+  }
+
+  def part2Score(data: Array[Scratcher]): Int = {
+    data.map(g => makeCopies(g, data)).map(countAll).sum
+  }
+
+  val parsedTest = parseInput(testInput)
+  val parsedProvided = parseInput(providedInput)
+  assert(part1Score(parsedTest) == 13)
+  assert(part2Score(parsedTest) == 30)
+
+  val part1Answer = part1Score(parsedProvided)
   println(s"Part 1: $part1Answer")
 
-  val testTree = new WinTree(parseInput(testInput))
-  assert(testTree.part2Answer == 30)
-  val part2Tree = new WinTree(parseInput(providedInput))
-  println(s"Part 2: ${part2Tree.part2Answer}")
+  val part2Answer = part2Score(parsedProvided)
+  println(s"Part 2: ${part2Answer}")
 
 }

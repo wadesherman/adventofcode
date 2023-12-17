@@ -13,21 +13,16 @@ object Day2 extends App with ProvidedInput {
     "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
   )
 
-  val gameRegex = "Game (\\d+): ".r
-
   type Game = (Int, Array[Array[(String, Int)]])
 
   def parseInput(input: Seq[String]): Seq[Game] = input
-    .map(str => {
-      val index = gameRegex.findFirstMatchIn(str).get.subgroups.head.toInt
-      val data = str.replaceAll(gameRegex.toString(), "").split("; ")
-      (index, data)
-    })
+    .map{ case s"Game ${i}: ${data}" => (i.toInt, data.split(";").map(_.stripLeading))}
     .map { case (index, data) =>
-      val cubes = data
-        .map(_.split(", "))
-        .map(cubes => cubes.map(_.split(" ")).map(array => array(1) -> array(0).toInt))
-      (index, cubes)
+      (index, data
+        .map(_.split(", ")
+          .map{ case s"${count} ${color}" => color -> count.toInt}
+        )
+      )
 
     }
 

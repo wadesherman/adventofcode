@@ -174,7 +174,7 @@ object Day5 extends App with ProvidedInput {
     part2Seeds(seeds).map(l => Range(l._1, l._1, l._2)).sortBy(_.sourceStart)
   }
 
-  def part1Algorithm(seeds: Seeds, seedToLocation: BigInt => BigInt): BigInt = {
+  def part1Score(seeds: Seeds, seedToLocation: BigInt => BigInt): BigInt = {
     seeds.seeds
       .map(seed => seedToLocation(seed))
       .min
@@ -196,10 +196,7 @@ object Day5 extends App with ProvidedInput {
       .get
   }
 
-  def sliceAndMap(
-      data: Seq[Range],
-      mapper: Seq[Range]
-  ): Seq[Range] = {
+  def sliceAndMap(data: Seq[Range], mapper: Seq[Range]): Seq[Range] = {
     if (data == Nil) {
       Nil
     } else if (mapper == Nil) {
@@ -261,7 +258,7 @@ object Day5 extends App with ProvidedInput {
 
   }
 
-  def part2Algorithm(seeds: Seeds, almanac: Almanac): BigInt = {
+  def part2Score(seeds: Seeds, almanac: Almanac): BigInt = {
     val seedRanges = part2SeedRanges(seeds).sortBy(_.sourceStart)
     val mappingRanges = almanac.all
 
@@ -279,20 +276,20 @@ object Day5 extends App with ProvidedInput {
   val testSeedToLocation = seedToLocation(testAlmanac)
   val testLocationToSeed = locationToSeed(testAlmanac)
 
-  assert(part1Algorithm(testSeeds, testSeedToLocation) == 35)
+  assert(part1Score(testSeeds, testSeedToLocation) == 35)
   assert(part2BruteForce(testSeeds, testLocationToSeed) == 46)
-  assert(part2Algorithm(testSeeds, testAlmanac) == 46)
+  assert(part2Score(testSeeds, testAlmanac) == 46)
 
   val (dataSeeds, dataAlmanac) = parseInput(providedInput)
   val dataSeedToLocation = seedToLocation(dataAlmanac)
   val dataLocationToSeed = locationToSeed(dataAlmanac)
 
-  val part1 = part1Algorithm(dataSeeds, dataSeedToLocation)
+  val part1 = part1Score(dataSeeds, dataSeedToLocation)
   println(s"Part 1: $part1")
 
   val t1 = System.currentTimeMillis()
 
-  val part2 = part2Algorithm(dataSeeds, dataAlmanac)
+  val part2 = part2Score(dataSeeds, dataAlmanac)
   val t2 = System.currentTimeMillis()
 
   println(s"Part 2: $part2 ${t2 - t1}ms")

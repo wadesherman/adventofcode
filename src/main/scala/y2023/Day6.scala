@@ -47,7 +47,7 @@ object Day6 extends App with ProvidedInput {
     .map(_.length)
     .product
 
-  def part2(data: (BigInt, BigInt)): BigInt = {
+  def part2BruteForce(data: (BigInt, BigInt)): BigInt = {
     val (timeLimit, distanceRecord) = data
 
     val starts = LazyList.range(BigInt(0), timeLimit)
@@ -118,7 +118,7 @@ object Day6 extends App with ProvidedInput {
 
   assert(part1(parseInput(testInput)) == 288)
   assert(part2QuadraticRoot(parseInputPart2(testInput)) == 71503)
-  assert(part2(parseInputPart2(testInput)) == 71503)
+  assert(part2BruteForce(parseInputPart2(testInput)) == 71503)
   assert(part2Binary(parseInputPart2(testInput)) == 71503)
 
   println(s"Part 1: ${part1(parseInput(providedInput))}")
@@ -135,9 +135,9 @@ object Day6 extends App with ProvidedInput {
 
   println(s"Part 2 Quadratic: ${part2Result} ${t3 - t2}ms")
 
-  val part2BruteForce = part2(parseInputPart2(providedInput))
+  val part2bf = part2BruteForce(parseInputPart2(providedInput))
   val t4 = System.currentTimeMillis()
 
-  println(s"Part 2 BruteForce: ${part2BruteForce} ${t4 - t3}ms")
+  println(s"Part 2 BruteForce: ${part2bf} ${t4 - t3}ms")
 
 }
