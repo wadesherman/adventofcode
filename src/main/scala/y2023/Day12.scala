@@ -119,10 +119,8 @@ object Day12 extends App with ProvidedInput {
   val parsedProvidedInput = parseInput(providedInput)
   println(s"Part 1: ${part1(parsedProvidedInput)}")
 
-  val t1 = System.currentTimeMillis()
-  val part2Result = part2(parsedProvidedInput)
-  val t2 = System.currentTimeMillis()
-  println(s"Part 2: ${part2Result} ${t2 - t1}ms")
+  val part2Result = run { part2(parsedProvidedInput) }
+  println(s"Part 2: $part2Result")
 
   tp.shutdown()
 }

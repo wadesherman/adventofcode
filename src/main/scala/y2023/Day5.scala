@@ -287,16 +287,10 @@ object Day5 extends App with ProvidedInput {
   val part1 = part1Score(dataSeeds, dataSeedToLocation)
   println(s"Part 1: $part1")
 
-  val t1 = System.currentTimeMillis()
+  val part2 = run {part2Score(dataSeeds, dataAlmanac) }
+  println(s"Part 2: $part2")
 
-  val part2 = part2Score(dataSeeds, dataAlmanac)
-  val t2 = System.currentTimeMillis()
-
-  println(s"Part 2: $part2 ${t2 - t1}ms")
-
-  val part2brute = part2BruteForce(dataSeeds, dataLocationToSeed)
-  val t3 = System.currentTimeMillis()
-
-  println(s"Part 2 Brute Force: $part2brute ${t3 - t2}ms")
+  val part2brute = run { part2BruteForce(dataSeeds, dataLocationToSeed) }
+  println(s"Part 2 Brute Force: $part2brute")
 
 }

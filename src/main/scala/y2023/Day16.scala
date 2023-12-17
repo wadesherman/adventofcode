@@ -83,7 +83,6 @@ object Day16 extends App with ProvidedInput {
       .toMap
       .withDefaultValue(None)
 
-
   @tailrec
   def traverse(paths: Seq[Move], vmap: CellMap, hist: Set[Move]): Set[Move] = {
     if (paths.isEmpty) {
@@ -121,8 +120,8 @@ object Day16 extends App with ProvidedInput {
 
   def part2BruteForce(map: CellMap): Int = {
     startingPoints(map).map(s => {
-        traverse(Seq(s), map, Set.empty[Move]).map(_.coord).size
-      })
+      traverse(Seq(s), map, Set.empty[Move]).map(_.coord).size
+    })
   }.max
 
   def part2Parallel(map: CellMap): Int = {
@@ -139,15 +138,10 @@ object Day16 extends App with ProvidedInput {
   assert(part2BruteForce(parseInput(testInput)) == 51)
 
   println(s"Part 1: ${part1(parseInput(providedInput))}")
-
-  val t1 = System.currentTimeMillis()
-  val p2bf = part2BruteForce(parseInput(providedInput))
-  val t2 = System.currentTimeMillis()
-  val p2par = part2Parallel(parseInput(providedInput))
-  val t3 = System.currentTimeMillis()
-
-  println(s"Part 2 Sequential: ${p2bf} ${t2 - t1}ms")
-  println(s"Part 2 Parallel: ${p2par} ${t3 - t2}ms")
+  val p2bf = run { part2BruteForce(parseInput(providedInput)) }
+  println(s"Part 2 Sequential: $p2bf")
+  val p2par = run { part2Parallel(parseInput(providedInput)) }
+  println(s"Part 2 Parallel: $p2par")
 
   tp.shutdown()
 }

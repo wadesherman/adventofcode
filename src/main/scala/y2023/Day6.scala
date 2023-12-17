@@ -123,21 +123,13 @@ object Day6 extends App with ProvidedInput {
 
   println(s"Part 1: ${part1(parseInput(providedInput))}")
 
-  val t1 = System.currentTimeMillis()
+  val part2B = run { part2Binary(parseInputPart2(providedInput)) }
+  println(s"Part 2: $part2B")
 
-  val part2B = part2Binary(parseInputPart2(providedInput))
-  val t2 = System.currentTimeMillis()
+  val part2Result = run{ part2QuadraticRoot(parseInputPart2(providedInput)) }
+  println(s"Part 2 Quadratic: $part2Result")
 
-  println(s"Part 2: ${part2B} ${t2 - t1}ms")
-
-  val part2Result = part2QuadraticRoot(parseInputPart2(providedInput))
-  val t3 = System.currentTimeMillis()
-
-  println(s"Part 2 Quadratic: ${part2Result} ${t3 - t2}ms")
-
-  val part2bf = part2BruteForce(parseInputPart2(providedInput))
-  val t4 = System.currentTimeMillis()
-
-  println(s"Part 2 BruteForce: ${part2bf} ${t4 - t3}ms")
+  val part2bf = run { part2BruteForce(parseInputPart2(providedInput)) }
+  println(s"Part 2 BruteForce: $part2bf")
 
 }
