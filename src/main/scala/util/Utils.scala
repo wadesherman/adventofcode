@@ -40,4 +40,7 @@ object Utils {
       )
       .toArray
   }
+
+  def hexToBigInt(hex: String): BigInt =
+    hex.toList.map("0123456789abcdef".indexOf(_)).foldLeft(BigInt(0)){ case (z, h) => z * 16 + h}
 }

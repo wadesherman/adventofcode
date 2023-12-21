@@ -2,7 +2,7 @@ package util
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
-import util.Utils.{rotateLeft, rotateRight}
+import util.Utils.{hexToBigInt, rotateLeft, rotateRight}
 
 class UtilsSpec extends AnyFlatSpec {
   it should "rotate a matrix" in {
@@ -22,5 +22,9 @@ class UtilsSpec extends AnyFlatSpec {
     rotateRight(matrix) shouldBe rotated
 
     rotateLeft(rotateRight(matrix)) shouldBe matrix
+  }
+
+  it should "convert hex to BigInt" in {
+    hexToBigInt("70c71") shouldBe BigInt(461937)
   }
 }
