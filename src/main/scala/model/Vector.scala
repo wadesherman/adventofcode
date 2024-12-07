@@ -11,4 +11,11 @@ case class Vector(position: Position, direction: Direction) {
     case SE => this.copy(position = position.se)
     case SW => this.copy(position = position.sw)
   }
+
+  def right: Vector = direction match {
+    case N  => this.copy(direction = E)
+    case E => this.copy(direction = S)
+    case S  => this.copy(direction = W)
+    case W  => this.copy(direction = N)
+  }
 }
