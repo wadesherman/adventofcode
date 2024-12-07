@@ -39,10 +39,7 @@ object Day7 extends ProvidedInput with App {
       } else if (v > t) {
         false
       } else {
-        ops.find(op => validate(t, op(v, remaining.head), remaining.tail, ops)) match {
-          case Some(_) => true
-          case None    => false
-        }
+        ops.exists(op => validate(t, op(v, remaining.head), remaining.tail, ops))
       }
     }
 
