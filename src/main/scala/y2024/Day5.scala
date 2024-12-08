@@ -119,11 +119,11 @@ object Day5 extends ProvidedInput with App {
 
 
   assert(sumMiddlePagesofValidUpdates(parseInput(testInput)) == 143)
-  val part1 = sumMiddlePagesofValidUpdates(parseInput(providedInput))
+  val part1 = run { sumMiddlePagesofValidUpdates(parseInput(providedInput)) }
   println(s"Part 1: $part1")
 
   assert(correctAndSumInvalidUpdates(parseInput(testInput)) == 123)
-  val part2 = correctAndSumInvalidUpdates(parseInput(providedInput))
+  val part2 = run { correctAndSumInvalidUpdates(parseInput(providedInput)) }
   println(s"Part 2: $part2")
 
 }

@@ -88,13 +88,14 @@ object Day6 extends ProvidedInput with App {
   }
 
 
-  assert(countVisited(travelPath(parseInput(testInput))) == 41)
-  val part1 = countVisited(travelPath(parseInput(providedInput)))
+  val parsedTestInput = parseInput(testInput)
+  val parsedProvidedInput = parseInput(providedInput)
+
+  assert(countVisited(travelPath(parsedTestInput)) == 41)
+  val part1 = run { countVisited(travelPath(parseInput(providedInput))) }
   println(s"Part 1: $part1")
 
-  val part2TestGrid = parseInput(testInput)
-  assert(proposeObstacles(travelPath(part2TestGrid), part2TestGrid)._2.size == 6)
-  val part2ProvidedGrid = parseInput(providedInput)
-  val part2 = proposeObstacles(travelPath(part2ProvidedGrid), part2ProvidedGrid)._2.size
+  assert(proposeObstacles(travelPath(parsedTestInput), parsedTestInput)._2.size == 6)
+  val part2 = run { proposeObstacles(travelPath(parsedProvidedInput), parsedProvidedInput)._2.size }
   println(s"Part 2: $part2")
 }
