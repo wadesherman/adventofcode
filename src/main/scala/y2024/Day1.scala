@@ -15,21 +15,14 @@ object Day1 extends ProvidedInput with App {
     "3   3"
   )
 
-  sealed trait ListValue
-  case class R(v: Int) extends ListValue
-  case class L(v: Int) extends ListValue
-
   def splitInput(input: Array[String]) = input
-    .flatMap(_.split("\\s+")
+    .map(_.split("\\s+")
       .map(_.toInt)
       .toList match {
-        case l :: r :: Nil => List(L(l), R(r))
+        case l :: r :: Nil => (l, r)
       }
     )
-    .partitionMap {
-      case R(r) => Right(r)
-      case L(l) => Left(l)
-    }
+    .unzip
 
 
   def listDifference(lists: (Array[Int], Array[Int])): Int = {
