@@ -29,9 +29,9 @@ object Day11 extends ProvidedInput with App {
       1
     } else {
       val (l, r) = applyRules(rock)
-      val foo: Long = blink(n - 1, l)
-      val bar: Long = r.map(blink(n - 1, _)).getOrElse(0)
-      (foo) + (bar)
+      val leftRock: Long = blink(n - 1, l)
+      val rightRock: Long = r.map(blink(n - 1, _)).getOrElse(0)
+      (leftRock) + (rightRock)
     }
   }}
 
@@ -42,5 +42,5 @@ object Day11 extends ProvidedInput with App {
   println(s"Part 1: $part1")
 
   val part2 = run { countRocks(parseInput(providedInput), 75) }
-  print(s"Part 2: $part2")
+  println(s"Part 2: $part2")
 }
