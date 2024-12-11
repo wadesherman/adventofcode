@@ -62,7 +62,7 @@ object Day10 extends ProvidedInput with App {
     trailScore
   }
 
-  def trailheadScore(paths: AllPaths): Int = paths.map(_.map(_.head).distinct.length).sum
+  def trailheadScore(paths: AllPaths): Int = paths.map(_.flatMap(_.headOption).distinct.length).sum
   def trailRating(paths: AllPaths): Int = paths.map(_.distinct.length).sum
 
   assert(trailheadScore(paths(parseInput(testInput))) == 36)
