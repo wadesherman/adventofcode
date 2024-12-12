@@ -16,7 +16,9 @@ object Utils {
    *  }
    */
   def memoize[I, O](f: I => O): I => O = new mutable.HashMap[I, O]() {
-    override def apply(key: I): O = getOrElseUpdate(key, f(key))
+    override def apply(key: I): O = {
+      getOrElseUpdate(key, f(key))
+    }
   }
 
   def rotateLeft[T](input: Array[Array[T]])(implicit tag: ClassTag[T]): Array[Array[T]] = {

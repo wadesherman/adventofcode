@@ -20,4 +20,9 @@ case class Position (x: Int, y: Int){
     Vector(se, SE),
     Vector(sw, SW)
   )
+
+  def cardinalNeighbors: List[Vector] = adjacent.filter(_.direction match {
+    case _: CardinalDirection => true
+    case _                    => false
+  })
 }
