@@ -38,11 +38,11 @@ object Day8 extends ProvidedInput with App {
     }.toList
   }
 
-  def dist(l: Position, r: Position): (Int, Int, Int, Int, Int, Int) = {
+  def dist(l: Position, r: Position): (Long, Long, Long, Long, Long, Long) = {
     (l.x, l.y, r.x, r.y, l.x - r.x, l.y - r.y)
   }
 
-  type Calc = (Node[Antenna], Node[Antenna], Int, Int) => List[Node[AntiNode]]
+  type Calc = (Node[Antenna], Node[Antenna], Long, Long) => List[Node[AntiNode]]
 
   def simpleAntiNodes: Calc = { case (l, r, _, _) =>
     val (lX, lY, rX, rY, dX, dY) = dist(l.position, r.position)
@@ -53,7 +53,7 @@ object Day8 extends ProvidedInput with App {
     case (l, r, maxX, maxY) => {
       val (lX, lY, rX, rY, dX, dY) = dist(l.position, r.position)
 
-      type I = ((Int, Int), (Int, Int))
+      type I = ((Long, Long), (Long, Long))
       def iter(s: I)(f: I => I) = {
         Iterator
           .iterate(s)(f)

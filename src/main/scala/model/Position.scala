@@ -1,6 +1,6 @@
 package model
 
-case class Position (x: Int, y: Int){
+case class Position (x: Long, y: Long){
   def n = Position(x, y - 1)
   def s = Position(x, y + 1)
   def e = Position(x + 1, y)
@@ -25,4 +25,11 @@ case class Position (x: Int, y: Int){
     case _: CardinalDirection => true
     case _                    => false
   })
+
+  def diagonalNeighbors: List[Vector] = adjacent.filter(_.direction match {
+    case _: DiagonalDirection => true
+    case _                    => false
+  })
+
+  def plus(p: Position): Position = Position(x + p.x, y + p.y)
 }
